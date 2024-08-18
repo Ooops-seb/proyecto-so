@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  webapp1:
+    build:
+      context: ./app1
+      dockerfile: Dockerfile
+    env_file:
+    - ./app1/.env
+    container_name: webapp1
+    working_dir: /app
+    volumes:
+      - ./app1:/app
+      - /app/node_modules
+    networks:
+      frontend_network:
+        ipv4_address: 172.19.0.10
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run dev"
+  
+  webapp2:
+    build:
+      context: ./app2
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: ${APP_NAME}
+    env_file:
+      - ./app2/.env
+    container_name: webapp2
+    working_dir: /app
+    volumes:
+      - ./app2:/app
+      - /app/node_modules
+    networks:
+      frontend_network:
+        ipv4_address: 172.19.0.11
+    ports:
+      - "3001:3000"
+    command: sh -c "npm install && npm run dev"
+
+networks:
+  frontend_network:
+    driver: bridge
+    external: true
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24

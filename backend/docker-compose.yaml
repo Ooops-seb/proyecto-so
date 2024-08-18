@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    build:
+      context: ./databases/postgres
+      dockerfile: Dockerfile
+    container_name: postgres_db      
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      backend_network:
+          ipv4_address: 172.18.0.10
+    ports:
+      - "5434:5432"
+  mysql_db:
+    build:
+      context: ./databases/mysql
+      dockerfile: Dockerfile
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      backend_network:
+          ipv4_address: 172.18.0.11
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  mongo_db:
+    build:
+      context: ./databases/mongo
+      dockerfile: Dockerfile
+    container_name: mongo_db
+    networks:
+      backend_network:
+          ipv4_address: 172.18.0.12
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  pg_data:
+  db_data:
+  mongo_data:
+
+networks:
+  backend_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
+    external: true

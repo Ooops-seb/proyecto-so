@@ -3,12 +3,10 @@ FROM postgres:16
 
 ARG POSTGRES_USER
 ARG POSTGRES_PASSWORD
-ARG POSTGRES_DB
 
 # Establece variables de entorno para PostgreSQL
 ENV POSTGRES_USER=${POSTGRES_USER}
 ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-ENV POSTGRES_DB=${POSTGRES_DB}
 
 # Copia scripts de inicialización a la carpeta de inicialización de PostgreSQL
 # (Opcional) Si tienes scripts SQL o de shell para inicializar la base de datos, cópialos
