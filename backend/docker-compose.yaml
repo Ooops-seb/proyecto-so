@@ -5,7 +5,9 @@ services:
     build:
       context: ./databases/postgres
       dockerfile: Dockerfile
-    container_name: postgres_db      
+    container_name: postgres_db
+    env_file:
+      - .env   
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -21,6 +23,8 @@ services:
       context: ./databases/mysql
       dockerfile: Dockerfile
     container_name: mysql_db
+    env_file:
+      - .env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
@@ -42,6 +46,8 @@ services:
           ipv4_address: 172.18.0.12
     ports:
       - "27017:27017"
+    env_file:
+      - .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}

@@ -13,6 +13,7 @@ services:
       - ./app1:/app
       - /app/node_modules
     networks:
+      backend_network:
       frontend_network:
         ipv4_address: 172.19.0.10
     ports:
@@ -33,6 +34,7 @@ services:
       - ./app2:/app
       - /app/node_modules
     networks:
+      backend_network:
       frontend_network:
         ipv4_address: 172.19.0.11
     ports:
@@ -46,3 +48,10 @@ networks:
     ipam:
       config:
         - subnet: 172.19.0.0/24
+  
+  backend_network:
+    driver: bridge
+    external: true
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24

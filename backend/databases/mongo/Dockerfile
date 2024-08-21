@@ -7,7 +7,8 @@ ARG MONGO_INITDB_ROOT_PASSWORD
 ENV MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
 ENV MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
 
-# Expon el puerto de MongoDB
+COPY ./init/ /docker-entrypoint-initdb.d/
+
 EXPOSE 27017
 
 # Comando de inicio del contenedor
