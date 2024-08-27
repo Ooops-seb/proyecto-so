@@ -1,9 +1,11 @@
-import Image from "next/image";
 
-export default function Home() {
+const HomePage: React.FC = () => {
+
   return (
-    <div>
-      <h1>Index</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Mapa Satelital con ArcGIS</h1>
     </div>
   );
-}
+};
+
+export default HomePage;
