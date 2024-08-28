@@ -17,7 +17,6 @@ ENV POSTGRES_USER=${POSTGRES_USER}
 ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 # Copia scripts de inicialización a la carpeta de inicialización de PostgreSQL
-# (Opcional) Si tienes scripts SQL o de shell para inicializar la base de datos, cópialos
 COPY ./initdb/init.sql /docker-entrypoint-initdb.d/
 
 # Exponer el puerto 5432 para acceder a la base de datos desde fuera del contenedor

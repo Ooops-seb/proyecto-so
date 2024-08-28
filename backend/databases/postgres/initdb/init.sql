@@ -1,6 +1,7 @@
 CREATE DATABASE traccar;
+CREATE DATABASE traccartest;
 
-\c traccar
+\c traccartest
 
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
